@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: yassine
+      POSTGRES_PASSWORD: example  # Password for PostgreSQL
+      POSTGRES_DB: db
+    ports:
+      - 5432:5432 # Ensure PostgreSQL is exposed on port 5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data  # Persist data in a Docker volume
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080  # Adminer will be accessible at localhost:8080
+    environment:
+      ADMINER_DEFAULT_SERVER: db  # Automatically connects to your PostgreSQL service
+
+volumes:
+  pgdata:
